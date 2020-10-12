@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
   runApp(MyApp());
@@ -25,29 +26,48 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class DicePage extends StatelessWidget {
+class DicePage extends StatefulWidget {
+  @override
+  _DicePageState createState() => _DicePageState();
+}
+
+class _DicePageState extends State<DicePage> {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Row(
         children: [
-          ExpandedImage('images/minion.png'),
-          ExpandedImage('images/mac.png'),
+          ExpandedImage(),
+          ExpandedImage(),
         ],
       ),
     );
   }
 }
 
-class ExpandedImage extends StatelessWidget {
-  final String path;
-  ExpandedImage(this.path);
+class ExpandedImage extends StatefulWidget {
+  ExpandedImage();
+
+  @override
+  _ExpandedImageState createState() => _ExpandedImageState();
+}
+
+class _ExpandedImageState extends State<ExpandedImage> {
+  final List<String> list = ['firefox', 'linux', 'mac', 'minion', 'rubberdack'];
+
   @override
   Widget build(BuildContext context) {
+    String imgName = list[Random().nextInt(4)];
     return Expanded(
       child: TextButton(
-        child: Image.asset(path),
-        onPressed: () => print('Hello'),
+        child: Image.asset('images/$imgName.png'),
+        onPressed: () {
+          setState(
+            () {
+              imgName = list[Random().nextInt(4)];
+            },
+          );
+        },
       ),
     );
   }

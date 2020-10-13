@@ -26,12 +26,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class DicePage extends StatefulWidget {
-  @override
-  _DicePageState createState() => _DicePageState();
-}
-
-class _DicePageState extends State<DicePage> {
+class DicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -53,21 +48,21 @@ class ExpandedImage extends StatefulWidget {
 }
 
 class _ExpandedImageState extends State<ExpandedImage> {
-  final List<String> list = ['firefox', 'linux', 'mac', 'minion', 'rubberdack'];
+  final List<String> imageNameList = ['firefox', 'linux', 'mac', 'minion', 'rubberdack'];
+  int rndomIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    String imgName = list[Random().nextInt(4)];
     return Expanded(
       child: TextButton(
-        child: Image.asset('images/$imgName.png'),
         onPressed: () {
           setState(
             () {
-              imgName = list[Random().nextInt(4)];
+              rndomIndex = Random().nextInt(5);
             },
           );
         },
+        child: Image.asset('images/${imageNameList[rndomIndex]}.png'),
       ),
     );
   }
